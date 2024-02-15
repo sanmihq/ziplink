@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Lexend, Poppins } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const lexend = Lexend({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -22,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} mx-auto max-w-[100rem]`}>
+      <body className={`${lexend.className} mx-auto max-w-[100rem]`}>
         <main>{children}</main>
       </body>
     </html>
