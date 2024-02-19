@@ -5,7 +5,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const { longUrl } = await req.json();
     const shortId = nanoid(10);
-    const shortUrl = `ziplink/${shortId}`;
+    const shortUrl = `zip.link/${shortId}`;
     const responsePayload = { shortUrl };
 
     return new Response(JSON.stringify(responsePayload), {
