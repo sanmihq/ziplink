@@ -27,6 +27,13 @@ export default function ShortUrlCard({
   originalUrl,
   onCopy,
 }: ShortUrlCardProps) {
+  const baseUrl = () => {
+    const { protocol, host } = window.location;
+    return `${protocol}//${host}`;
+  };
+
+  const fullUrl = (shortUrl: string) => `${baseUrl()}/${shortUrl}`;
+
   return (
     <Card
       isBlurred
@@ -36,12 +43,12 @@ export default function ShortUrlCard({
         <div className="flex w-4/5 flex-col items-start gap-1">
           <div className="flex items-center gap-4">
             <Link
-              href={shortUrl}
+              href={fullUrl(shortUrl)}
               target="_blank"
               rel="noopener noreferrer"
               className="text-md font-bold hover:underline"
             >
-              {shortUrl}
+              {fullUrl(shortUrl)}
             </Link>
 
             {/* copy to clipboard button */}

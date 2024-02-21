@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Lexend, Poppins, Space_Mono } from "next/font/google";
+import { Lexend, Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "./components/Header";
@@ -16,11 +16,11 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "700"],
-});
+// const spaceMono = Space_Mono({
+//   subsets: ["latin"],
+//   display: "swap",
+//   weight: ["400", "700"],
+// });
 
 export const metadata: Metadata = {
   generator: "Next.js",
@@ -40,7 +40,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-white">
-      <body className={`${spaceMono.className} mx-auto max-w-[100rem]`}>
+      <body className={`${poppins.className} mx-auto max-w-[100rem]`}>
         <Providers>
           <Header />
           <main className="mx-10">{children}</main>

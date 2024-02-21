@@ -9,7 +9,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     // generate shortUrl
     const shortId = nanoid(10);
-    const shortUrl = `zip.link/${shortId}`;
+    // const shortUrl = `zip.link/${shortId}`;
+    const shortUrl = shortId;
 
     // save it to redis using hset
     await redis.hset("urls", { [shortUrl]: longUrl });
