@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
-
 import ShortUrlList from "./ShortUrlList";
 
+// Main component for URL shortener
 export default function UrlShortener() {
+  // State variables
   const [longUrl, setLongUrl] = useState("");
   const [urls, setUrls] = useState<{ shortUrl: string; originalUrl: string }[]>(
     [],
@@ -13,26 +14,30 @@ export default function UrlShortener() {
   const [error, setError] = useState("");
   const [copied, setCopied] = useState(false);
 
-  // copy to clipboard function
+  // Copy to clipboard function
   const handleCopy = () => {
     setCopied(true);
+    console.log("Copied to clipboard");
   };
 
+  // Function to shorten URL
   const shortenUrl = async () => {
     try {
-      // Check if the input is empty
+      // Check if input is empty
       if (!longUrl.trim()) {
         setError("Please enter a valid URL");
         return;
       }
 
       try {
+        // Check if input contains a valid URL
         new URL(longUrl);
       } catch (error) {
         setError("Please enter a valid URL");
         return;
       }
 
+      // Fetch API to shorten URL
       const response = await fetch("/api/shorten", {
         method: "POST",
         headers: {
@@ -45,14 +50,17 @@ export default function UrlShortener() {
         throw new Error("Failed to shorten URL");
       }
 
+      // Parse response data
       const data = await response.json();
 
+      // Update state with new shortened URL
       setUrls((prevUrls) => [
         { shortUrl: data.shortUrl, originalUrl: longUrl },
         ...prevUrls.slice(0, 2),
       ]);
 
-      setLongUrl(""); // Clear input after successful submission
+      // Reset input and error
+      setLongUrl("");
       setError("");
     } catch (error) {
       console.error("Error shortening URL:", error);
@@ -60,35 +68,37 @@ export default function UrlShortener() {
     }
   };
 
+  // JSX structure for the component
   return (
     <div className="mx-auto">
-      <div className="mb-10">
-        <span>Try now</span>
+      <div>
+        <Input
+          size="sm"
+          type="text"
+          color="secondary"
+          variant="flat"
+          isRequired
+          placeholder="https://zip.link/shorten"
+          value={longUrl}
+          onChange={(e) => setLongUrl(e.target.value)}
+          className="mx-auto w-full drop-shadow-md md:w-2/3"
+          endContent={
+            <Button
+              color="secondary"
+              size="sm"
+              aria-label="Shorten"
+              onClick={shortenUrl}
+            >
+              Zip It!
+            </Button>
+          }
+        />
       </div>
-      <Input
-        size="sm"
-        type="text"
-        color="secondary"
-        variant="flat"
-        isRequired
-        placeholder="https://zip.link/shorten"
-        value={longUrl}
-        onChange={(e) => setLongUrl(e.target.value)}
-        className="mx-auto w-full drop-shadow-md md:w-2/3"
-        endContent={
-          <Button
-            color="secondary"
-            size="sm"
-            aria-label="Shorten"
-            onClick={shortenUrl}
-          >
-            Zip It!
-          </Button>
-        }
-      />
 
+      {/* Display the list of shortened URLs */}
       <ShortUrlList urls={urls} onCopy={handleCopy} />
 
+      {/* Display error message if there is an error */}
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );

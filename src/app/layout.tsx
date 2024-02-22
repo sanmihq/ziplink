@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
-import { Lexend, Poppins } from "next/font/google";
+import { Poppins, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "./components/Header";
-
-const lexend = Lexend({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -16,11 +10,11 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-// const spaceMono = Space_Mono({
-//   subsets: ["latin"],
-//   display: "swap",
-//   weight: ["400", "700"],
-// });
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "700"],
+});
 
 export const metadata: Metadata = {
   generator: "Next.js",

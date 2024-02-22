@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import { NextRequest, NextResponse } from "next/server";
-import { redis } from "../../../../lib/redis";
+import { setUrl } from "../../../../lib/redis";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -8,16 +8,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const { longUrl } = await req.json();
 
     // generate shortUrl
-    const shortId = nanoid(10);
-    // const shortUrl = `zip.link/${shortId}`;
-    const shortUrl = shortId;
+    const shortUrl = nanoid(10);
 
-    // save it to redis using hset
-    await redis.hset("urls", { [shortUrl]: longUrl });
+    // save shortUrl to Redis
+    await setUrl(shortUrl, longUrl);
 
     const responsePayload = { shortUrl };
 
-    return new Response(JSON.stringify(responsePayload), {
+    return new NextResponse(JSON.stringify(responsePayload), {
       status: 200,
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +23,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
   } catch (error) {
     console.error("Error shortening URL:", error);
-    return new Response("Error shortening URL", {
+    return new NextResponse("Error shortening URL", {
       status: 400,
     });
   }

@@ -8,6 +8,7 @@ type Menu = {
   name: string;
   path: string;
 };
+
 export default function Header() {
   const pathname = usePathname();
   const menu: Menu[] = [
@@ -16,14 +17,14 @@ export default function Header() {
     { name: "About", path: "/about" },
   ];
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between bg-white bg-opacity-70 px-10 py-5 backdrop-blur-md">
+    <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-gray-400 bg-white px-10 py-5">
       <span className="font-bold">Ziplink</span>
-      <div className="flex w-2/3 items-center justify-between">
+      <div className="hidden w-2/3 items-center justify-between md:flex">
         <ul className="flex items-center gap-5">
           {menu.map((item, index) => (
             <li
               key={index}
-              className={`text-sm hover:font-bold ${pathname.startsWith(item.path) ? "font-bold" : "font-regular"}`}
+              className={`text-sm hover:font-medium ${pathname.startsWith(item.path) ? "font-semibold" : "font-regular"}`}
             >
               <Link href={item.path}>{item.name}</Link>
             </li>

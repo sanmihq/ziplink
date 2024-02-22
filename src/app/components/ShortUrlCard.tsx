@@ -31,28 +31,28 @@ export default function ShortUrlCard({
     const { protocol, host } = window.location;
     return `${protocol}//${host}`;
   };
-
   const fullUrl = (shortUrl: string) => `${baseUrl()}/${shortUrl}`;
 
   return (
     <Card
+      radius="md"
       isBlurred
-      className="rounded-lg border-2 border-transparent bg-white bg-opacity-70 p-4 drop-shadow-lg backdrop-blur-md hover:border-black"
+      className="border-2 border-transparent bg-opacity-70 p-4 hover:border-black"
     >
       <div className="flex items-center justify-between">
         <div className="flex w-4/5 flex-col items-start gap-1">
-          <div className="flex items-center gap-4">
+          <div className="flex w-full items-center gap-4">
             <Link
               href={fullUrl(shortUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-md font-bold hover:underline"
+              className="text:sm md:text-md truncate text-start font-semibold hover:underline"
             >
               {fullUrl(shortUrl)}
             </Link>
 
             {/* copy to clipboard button */}
-            <CopyToClipboard text={shortUrl} onCopy={onCopy}>
+            <CopyToClipboard text={fullUrl(shortUrl)} onCopy={onCopy}>
               <Button isIconOnly color="default" size="sm" variant="flat">
                 <ClipboardDocumentIcon className="h-4 w-4" />
               </Button>
@@ -62,7 +62,7 @@ export default function ShortUrlCard({
             href={originalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full truncate text-start text-sm"
+            className="w-full truncate text-start text-xs md:text-sm"
           >
             {originalUrl}
           </Link>

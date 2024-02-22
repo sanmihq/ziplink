@@ -11,6 +11,4 @@ export async function middleware(req: NextRequest) {
   if (shortUrl) {
     return NextResponse.redirect(shortUrl);
   }
-
-  console.log(shortUrl, path);
 }
