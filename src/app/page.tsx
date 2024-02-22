@@ -9,7 +9,7 @@ export default function Home() {
       </h1>
       <p className="text-md mb-20 text-balance">
         Upgrade your links with Ziplink!
-        <br /> Simplify sharing, it's quick and hassle-free.
+        <br /> Simplify sharing, it&apos;s quick and hassle-free.
         <br /> Revolutionize your experience now!
       </p>
       <UrlShortener />
