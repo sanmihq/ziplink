@@ -1,44 +1,145 @@
 "use client";
 
-import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  Button,
+  Chip,
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
+  Link as NextUILink,
+} from "@nextui-org/react";
+import { IconBrandGithub, IconBrandX } from "@tabler/icons-react";
+import React, { ReactElement } from "react";
 
 type Menu = {
   name: string;
   path: string;
+  status?: string;
+  available?: boolean;
+};
+
+type Socials = {
+  name: string;
+  path: string;
+  icon: ReactElement;
+  variant: any;
 };
 
 export default function Header() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const pathname = usePathname();
   const menu: Menu[] = [
-    { name: "Home", path: "/" },
-    { name: "Analytics", path: "/analytics" },
-    { name: "About", path: "/about" },
+    { name: "Shorten", path: "/", available: true },
+    {
+      name: "Analytics",
+      path: "/analytics",
+      status: "coming soon",
+      available: false,
+    },
+  ];
+  const socials: Socials[] = [
+    {
+      name: "Github",
+      path: "https://github.com/sanmihq/ziplink",
+      icon: <IconBrandGithub className="h-5 w-5" />,
+      variant: "solid",
+    },
+    {
+      name: "Twitter",
+      path: "https://twitter.com/sanmi_hq",
+      icon: <IconBrandX className="h-5 w-5" />,
+      variant: "bordered",
+    },
   ];
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-gray-400 bg-white px-10 py-5">
-      <span className="font-bold">Ziplink</span>
-      <div className="hidden w-2/3 items-center justify-between md:flex">
-        <ul className="flex items-center gap-5">
-          {menu.map((item, index) => (
-            <li
-              key={index}
-              className={`text-sm hover:font-medium ${pathname.startsWith(item.path) ? "font-semibold" : "font-regular"}`}
-            >
+    <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
+      {/* DESKTOP NAV */}
+      <NavbarContent justify="center">
+        <NavbarBrand className="text-md font-semibold">Ziplink</NavbarBrand>
+      </NavbarContent>
+      <NavbarContent
+        justify="center"
+        className="hidden flex-1 gap-6 md:flex lg:gap-8"
+      >
+        {menu.map((item, index) => (
+          <NavbarItem
+            key={index}
+            className={`text-sm font-normal ${pathname.startsWith(item.path) && "font-medium"}`}
+          >
+            {item.available ? (
               <Link href={item.path}>{item.name}</Link>
-            </li>
-          ))}
-        </ul>
-        <div className="flex items-center gap-4">
-          <Button size="sm" color="secondary">
-            Try Now
+            ) : (
+              <Link href={item.path}>
+                {item.name}
+                <Chip size="sm" color="secondary" className="ml-2">
+                  {item.status}
+                </Chip>
+              </Link>
+            )}
+          </NavbarItem>
+        ))}
+      </NavbarContent>
+      <NavbarContent justify="center" className="hidden md:flex">
+        {socials.map((social, index) => (
+          <Button
+            key={index}
+            as={NextUILink}
+            isExternal
+            href={social.path}
+            color="secondary"
+            variant={social.variant}
+            size="sm"
+            startContent={social.icon}
+          >
+            {social.name}
           </Button>
-          <Button size="sm" variant="bordered" color="secondary">
-            Sign In
+        ))}
+      </NavbarContent>
+
+      {/* MOBILE NAV */}
+      <NavbarMenu>
+        {menu.map((item, index) => (
+          <NavbarMenuItem
+            key={index}
+            className={`text-sm font-normal ${pathname.startsWith(item.path) && "font-medium"} ${index === socials.length - 1 && "mb-6"}`}
+          >
+            {item.available ? (
+              <Link href={item.path}>{item.name}</Link>
+            ) : (
+              <Link href={item.path}>
+                {item.name}
+                <Chip size="sm" color="secondary" className="ml-2">
+                  {item.status}
+                </Chip>
+              </Link>
+            )}
+          </NavbarMenuItem>
+        ))}
+        {socials.map((social, index) => (
+          <Button
+            key={index}
+            as={NextUILink}
+            isExternal
+            href={social.path}
+            color="secondary"
+            variant={social.variant}
+            size="sm"
+            startContent={social.icon}
+          >
+            {social.name}
           </Button>
-        </div>
-      </div>
-    </nav>
+        ))}
+      </NavbarMenu>
+      <NavbarMenuToggle
+        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+        className="md:hidden"
+      />
+    </Navbar>
   );
 }
