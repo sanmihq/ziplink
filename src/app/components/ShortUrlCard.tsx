@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   Button,
   Card,
+  Chip,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -79,6 +80,7 @@ export default function ShortUrlCard({
             aria-label="Actions Dropdown"
             color="secondary"
             variant="solid"
+            disabledKeys={["analyze"]}
           >
             <DropdownItem
               key="share"
@@ -90,7 +92,15 @@ export default function ShortUrlCard({
               key="analyze"
               startContent={<ArrowTrendingUpIcon className="h-4 w-4" />}
             >
-              Analyze
+              <span>Analyze</span>
+              <Chip
+                size="sm"
+                color="secondary"
+                // variant="bordered"
+                className="ml-2"
+              >
+                coming soon
+              </Chip>
             </DropdownItem>
             <DropdownItem
               key="delete"
