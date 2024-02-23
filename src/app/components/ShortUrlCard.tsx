@@ -93,12 +93,7 @@ export default function ShortUrlCard({
               startContent={<ArrowTrendingUpIcon className="h-4 w-4" />}
             >
               <span>Analyze</span>
-              <Chip
-                size="sm"
-                color="secondary"
-                // variant="bordered"
-                className="ml-2"
-              >
+              <Chip size="sm" color="secondary" className="ml-2">
                 coming soon
               </Chip>
             </DropdownItem>
