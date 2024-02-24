@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import ShortUrlList from "./ShortUrlList";
+import { toast } from "sonner";
 
 // Main component for URL shortener
 export default function UrlShortener() {
@@ -17,6 +18,7 @@ export default function UrlShortener() {
   // Copy to clipboard function
   const handleCopy = () => {
     setCopied(true);
+    toast.info("Copied to clipboard");
     console.log("Copied to clipboard");
   };
 
@@ -25,7 +27,7 @@ export default function UrlShortener() {
     try {
       // Check if input is empty
       if (!longUrl.trim()) {
-        setError("Please enter a valid URL");
+        toast.error("Please enter a URL");
         return;
       }
 
@@ -33,7 +35,7 @@ export default function UrlShortener() {
         // Check if input contains a valid URL
         new URL(longUrl);
       } catch (error) {
-        setError("Please enter a valid URL");
+        toast.error("Please enter a valid URL");
         return;
       }
 
@@ -49,6 +51,8 @@ export default function UrlShortener() {
       if (!response.ok) {
         throw new Error("Failed to shorten URL");
       }
+
+      toast.success("URL shortened successfully!");
 
       // Parse response data
       const data = await response.json();
@@ -97,9 +101,6 @@ export default function UrlShortener() {
 
       {/* Display the list of shortened URLs */}
       <ShortUrlList urls={urls} onCopy={handleCopy} />
-
-      {/* Display error message if there is an error */}
-      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
   );
 }

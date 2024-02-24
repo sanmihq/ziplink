@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "./components/Header";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
     <html lang="en" className="bg-white">
       <body className={`${poppins.className} mx-auto max-w-[100rem]`}>
         <Providers>
+          <Toaster richColors/>
           <Header />
           <main className="mx-10">{children}</main>
         </Providers>
