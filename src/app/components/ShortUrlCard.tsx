@@ -21,12 +21,14 @@ interface ShortUrlCardProps {
   shortUrl: string;
   originalUrl: string;
   onCopy: () => void;
+  onDelete: () => void;
 }
 
 export default function ShortUrlCard({
   shortUrl,
   originalUrl,
   onCopy,
+  onDelete,
 }: ShortUrlCardProps) {
   const baseUrl = () => {
     const { protocol, host } = window.location;
@@ -102,6 +104,7 @@ export default function ShortUrlCard({
               startContent={<TrashIcon className="h-4 w-4" />}
               className="text-danger"
               color="danger"
+              onClick={onDelete}
             >
               Delete URL
             </DropdownItem>

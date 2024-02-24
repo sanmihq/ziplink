@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import ShortUrlList from "./ShortUrlList";
 import { toast } from "sonner";
+import { deleteUrl } from "../../../lib/redis";
 
 // Main component for URL shortener
 export default function UrlShortener() {
@@ -20,6 +21,23 @@ export default function UrlShortener() {
     setCopied(true);
     toast.info("Copied to clipboard");
     console.log("Copied to clipboard");
+  };
+
+  const handleDelete = async (index: number) => {
+    try {
+      const updatedUrls = [...urls];
+      const deletedUrl = updatedUrls.splice(index, 1)[0]; // Remove the URL at the specified index
+
+      // Update state with the modified array
+      setUrls(updatedUrls);
+
+      // Delete URL from the Redis database
+      await deleteUrl(deletedUrl.shortUrl);
+      toast.success("URL deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting URL:", error);
+      toast.error("Error deleting URL");
+    }
   };
 
   // Function to shorten URL
@@ -100,7 +118,9 @@ export default function UrlShortener() {
       </div>
 
       {/* Display the list of shortened URLs only if there's any */}
-      {urls.length > 0 && <ShortUrlList urls={urls} onCopy={handleCopy} />}
+      {urls.length > 0 && (
+        <ShortUrlList urls={urls} onCopy={handleCopy} onDelete={handleDelete} />
+      )}
     </div>
   );
 }

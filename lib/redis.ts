@@ -17,3 +17,8 @@ export async function getUrl(shortUrl: string): Promise<string | null> {
 
   return data ?? null;
 }
+
+// Function to delete url mapping from db
+export async function deleteUrl(shortUrl: string): Promise<void> {
+  await redis.hdel("urls", shortUrl);
+}
