@@ -49,7 +49,7 @@ export default function ShortUrlCard({
               href={fullUrl(shortUrl)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text:sm md:text-md truncate text-start font-semibold hover:underline"
+              className="text:sm truncate text-start font-semibold hover:underline md:text-base"
             >
               {fullUrl(shortUrl)}
             </Link>
@@ -61,14 +61,9 @@ export default function ShortUrlCard({
               </Button>
             </CopyToClipboard>
           </div>
-          <Link
-            href={originalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full truncate text-start text-xs md:text-sm"
-          >
+          <span className="w-full truncate text-start text-xs md:text-sm">
             {originalUrl}
-          </Link>
+          </span>
         </div>
 
         {/* actions dropdown */}
