@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Poppins, Space_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "./components/Header";
@@ -8,12 +8,6 @@ const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
