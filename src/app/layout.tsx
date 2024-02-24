@@ -1,19 +1,14 @@
 import type { Metadata } from "next";
-import { Poppins, Space_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import Header from "./components/Header";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
   display: "swap",
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-});
-
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {
@@ -36,8 +31,9 @@ export default function RootLayout({
     <html lang="en" className="bg-white">
       <body className={`${poppins.className} mx-auto max-w-[100rem]`}>
         <Providers>
+          <Toaster richColors />
           <Header />
-          <main className="mx-10">{children}</main>
+          <main className="mx-5 md:mx-10">{children}</main>
         </Providers>
       </body>
     </html>

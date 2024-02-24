@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button, Input } from "@nextui-org/react";
 import ShortUrlList from "./ShortUrlList";
+import { toast } from "sonner";
 
 // Main component for URL shortener
 export default function UrlShortener() {
@@ -25,7 +26,7 @@ export default function UrlShortener() {
     try {
       // Check if input is empty
       if (!longUrl.trim()) {
-        setError("Please enter a valid URL");
+        toast.error("Please enter a URL");
         return;
       }
 
@@ -33,7 +34,7 @@ export default function UrlShortener() {
         // Check if input contains a valid URL
         new URL(longUrl);
       } catch (error) {
-        setError("Please enter a valid URL");
+        toast.error("Please enter a valid URL");
         return;
       }
 
@@ -47,8 +48,11 @@ export default function UrlShortener() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to shorten URL");
+        const errorMessage = "Failed to shorten URL";
+        throw new Error(errorMessage);
       }
+
+      toast.success("URL shortened successfully!");
 
       // Parse response data
       const data = await response.json();
