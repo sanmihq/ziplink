@@ -1,36 +1,79 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Ziplink README
 
-First, run the development server:
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+This project is a URL shortener implemented using Next.js, Redis, and Upstash. It provides a simple and efficient way to generate short URLs for long links, making them easier to share.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. `app/index.tsx` - Home Page
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- The main entry point of the application.
+- Displays a landing page and an input to shorten URLs.
+- Utilizes the `UrlShortener` component.
 
-## Learn More
+### 2. `components/UrlShortener.tsx` - URL Shortener Component
 
-To learn more about Next.js, take a look at the following resources:
+- Manages the state, input, and interactions related to the URL shortening process.
+- Allows users to input a long URL and generates a short URL using the `/api/shorten` endpoint.
+- Displays a list of shortened URLs using the `ShortUrlList` component.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. `components/ShortUrlList.tsx` - Short URL List Component
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- Displays a list of shortened URLs using the `ShortUrlCard` component.
 
-## Deploy on Vercel
+### 4. `components/ShortUrlCard.tsx` - Short URL Card Component
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Represents an individual card displaying information about a shortened URL.
+- Provides actions such as copying to clipboard and deleting the URL.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### 5. `lib/redis.ts` - Redis Functions
+
+- Connects to the Upstash Redis database using the `@upstash/redis` library.
+- Defines functions for setting, getting, and deleting URL mappings in the database.
+
+### 6. `app/api/shorten.ts` - URL Shortening API Endpoint
+
+- Handles the URL shortening logic by generating a short URL using `nanoid`, saving it to Redis, and returning the result.
+
+### 7. `middleware.ts` - URL Redirection Middleware
+
+- Middleware to intercept requests and redirect to the original URL if a short URL is found in the database.
+
+## Setup and Dependencies
+
+### 1. Next.js
+
+- The project is built using the Next.js framework for React applications.
+
+### 2. Redis and Upstash
+
+- Redis is used for storing and retrieving URL mappings.
+- Upstash provides a hosted Redis service.
+
+### 3. Sonner
+
+- The `sonner` library is used for displaying toast notifications.
+
+### 4. NextUI
+
+- NextUI components are utilized for building the user interface.
+
+### 5. Nanoid
+
+- The `nanoid` library is used for generating unique short URL identifiers.
+
+## How to Run the Project
+
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Set up Upstash Redis and obtain the necessary credentials.
+4. Update the Redis configuration in `lib/redis.ts` with the obtained URL and token.
+5. Run the development server using `npm run dev`.
+6. Open the application in your browser at [`http://localhost:3000`](`http://localhost:3000`).
+
+## Contributing
+
+If you'd like to contribute to this project, feel free to submit issues or pull requests.
