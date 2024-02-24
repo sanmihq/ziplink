@@ -18,5 +18,4 @@ export default function ShortUrlList({ urls, onCopy }: ShortUrlListProps) {
       ))}
     </div>
   );
-};
-
+}

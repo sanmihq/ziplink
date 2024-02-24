@@ -99,8 +99,8 @@ export default function UrlShortener() {
         />
       </div>
 
-      {/* Display the list of shortened URLs */}
-      <ShortUrlList urls={urls} onCopy={handleCopy} />
+      {/* Display the list of shortened URLs only if there's any */}
+      {urls.length > 0 && <ShortUrlList urls={urls} onCopy={handleCopy} />}
     </div>
   );
 }
