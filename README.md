@@ -1,6 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
-# Ziplink README
+# Ziplink
 
 ## Overview
 
@@ -8,7 +6,7 @@ This project is a URL shortener implemented using Next.js, Redis, and Upstash. I
 
 ## Project Structure
 
-### 1. `app/index.tsx` - Home Page
+### 1. `app/page.tsx` - Home Page
 
 - The main entry point of the application.
 - Displays a landing page and an input to shorten URLs.
